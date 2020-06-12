@@ -15,6 +15,8 @@ import java.nio.channels.FileChannel;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -97,6 +99,33 @@ public class SampleController {
     @GetMapping("/user")
     User getUser() {
         return new User(1L, "liuruichao", 20);
+    }
+
+    @GetMapping("/test3")
+    public String test3() {
+        List<User> users = new ArrayList<>(1100000);
+        for (int i = 0; i < 1000000; i++) {
+            users.add(new User((long) i, "liuruichao" + i, i));
+        }
+
+        String str = "hehe: " + users;
+        return "test3";
+    }
+
+    @GetMapping("/test4")
+    public String test4() {
+        ByteBuffer buffer = ByteBuffer.allocateDirect(1024 * 1024 * 60);
+        buffer = ByteBuffer.allocateDirect(1024 * 1024 * 60);
+        buffer = ByteBuffer.allocateDirect(1024 * 1024 * 60);
+        buffer = ByteBuffer.allocateDirect(1024 * 1024 * 60);
+        buffer = ByteBuffer.allocateDirect(1024 * 1024 * 60);
+        buffer = ByteBuffer.allocateDirect(1024 * 1024 * 60);
+        buffer = ByteBuffer.allocateDirect(1024 * 1024 * 60);
+        buffer = ByteBuffer.allocateDirect(1024 * 1024 * 60);
+        buffer = ByteBuffer.allocateDirect(1024 * 1024 * 60);
+        buffer = ByteBuffer.allocateDirect(1024 * 1024 * 60);
+        buffer = ByteBuffer.allocateDirect(1024 * 1024 * 60);
+        return "test4";
     }
 
     public static void main(String[] args) {
