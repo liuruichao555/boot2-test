@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
@@ -28,7 +29,9 @@ import java.util.Objects;
 @RestController
 @EnableAutoConfiguration
 public class SampleController {
+    private List<ByteBuffer> buffers = new ArrayList<>();
     private FileChannel fileChannel;
+
     @GetMapping("/")
     String home() {
         return "Hello World!";
@@ -113,19 +116,18 @@ public class SampleController {
     }
 
     @GetMapping("/test4")
-    public String test4() {
-        ByteBuffer buffer = ByteBuffer.allocateDirect(1024 * 1024 * 60);
-        buffer = ByteBuffer.allocateDirect(1024 * 1024 * 60);
-        buffer = ByteBuffer.allocateDirect(1024 * 1024 * 60);
-        buffer = ByteBuffer.allocateDirect(1024 * 1024 * 60);
-        buffer = ByteBuffer.allocateDirect(1024 * 1024 * 60);
-        buffer = ByteBuffer.allocateDirect(1024 * 1024 * 60);
-        buffer = ByteBuffer.allocateDirect(1024 * 1024 * 60);
-        buffer = ByteBuffer.allocateDirect(1024 * 1024 * 60);
-        buffer = ByteBuffer.allocateDirect(1024 * 1024 * 60);
-        buffer = ByteBuffer.allocateDirect(1024 * 1024 * 60);
-        buffer = ByteBuffer.allocateDirect(1024 * 1024 * 60);
+    public String test4(@RequestParam Integer count) {
+        for (int i = 0; i < count; i++) {
+            ByteBuffer buffer = ByteBuffer.allocateDirect(1024 * 1024 * 60);
+            buffers.add(buffer);
+        }
         return "test4";
+    }
+
+    @GetMapping("/remove/buffers")
+    public String test5() {
+        buffers = new ArrayList<>();
+        return "remove buffers success";
     }
 
     public static void main(String[] args) {
