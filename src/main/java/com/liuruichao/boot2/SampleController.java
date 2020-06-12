@@ -16,9 +16,7 @@ import java.nio.channels.FileChannel;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * SampleController
@@ -31,6 +29,7 @@ import java.util.Objects;
 public class SampleController {
     private List<ByteBuffer> buffers = new ArrayList<>();
     private FileChannel fileChannel;
+    private static Map<String, User> map = new HashMap<>();
 
     @GetMapping("/")
     String home() {
@@ -125,9 +124,19 @@ public class SampleController {
     }
 
     @GetMapping("/remove/buffers")
-    public String test5() {
+    public String removeBuffers() {
         buffers = new ArrayList<>();
         return "remove buffers success";
+    }
+
+    @GetMapping("/test5")
+    public String test5() {
+        for (int i = 0; i < 100000; i++) {
+            User user = new User(i + System.currentTimeMillis(), System.currentTimeMillis() + "liuruichao", 20);
+            map.put(user.toString(), user);
+        }
+
+        return "success";
     }
 
     public static void main(String[] args) {

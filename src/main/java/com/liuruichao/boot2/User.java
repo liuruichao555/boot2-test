@@ -16,6 +16,10 @@ public class User implements Serializable {
 
     private String name;
 
+    private String name2;
+
+    private String name3;
+
     private int age;
 
     public User(Long id, String name, int age) {
@@ -46,6 +50,24 @@ public class User implements Serializable {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getName2() {
+        return name2;
+    }
+
+    public User setName2(String name2) {
+        this.name2 = name2;
+        return this;
+    }
+
+    public String getName3() {
+        return name3;
+    }
+
+    public User setName3(String name3) {
+        this.name3 = name3;
+        return this;
     }
 
     @Override
