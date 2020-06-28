@@ -1,5 +1,7 @@
 package com.liuruichao.boot2;
 
+import com.alibaba.fastjson.JSON;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,9 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * SampleController
@@ -137,6 +142,34 @@ public class SampleController {
         }
 
         return "success";
+    }
+
+    @GetMapping("/test6")
+    public List<String> test6() {
+        String[] array = new String[500];
+        Random random = new Random();
+        for (int i = 0; i < array.length; i++) {
+            array[i] = String.valueOf(random.nextLong());
+        }
+
+        return buildList(Function.identity(), StringUtils::isNotBlank, array);
+    }
+
+    @GetMapping("/test7")
+    public String test7() throws InterruptedException {
+        List<User> users = new ArrayList<>();
+        for (int i = 0; i < 100000; i++) {
+            User user = new User(i + System.currentTimeMillis(), System.currentTimeMillis() + "liuruichao", 20);
+            users.add(user);
+        }
+
+        String str = JSON.toJSONString(users);
+        Thread.sleep(1000 * 3);
+        return "success";
+    }
+
+    public <T, R> List<R> buildList(Function<T, R> function, Predicate<R> predicate, T... t) {
+        return Arrays.stream(t).map(function).filter(predicate).collect(Collectors.toList());
     }
 
     public static void main(String[] args) {
