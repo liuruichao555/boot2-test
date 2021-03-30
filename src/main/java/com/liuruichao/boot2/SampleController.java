@@ -49,6 +49,12 @@ public class SampleController {
         return "Hello World!";
     }
 
+    @GetMapping("/hello")
+    public String hello() {
+        System.out.println("heh");
+        return "Hello";
+    }
+
     public static void main(String[] args) {
         SpringApplication.run(SampleController.class, args);
     }
