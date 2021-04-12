@@ -12,7 +12,7 @@ import org.springframework.shell.standard.ShellMethod;
 @ShellComponent
 public class TranslationCommands {
     @ShellMethod("Translate text from one language to another.")
-    public String translate() {
-        return "hehe";
+    public Integer translate(int a, int b) {
+        return a + b;
     }
 }
