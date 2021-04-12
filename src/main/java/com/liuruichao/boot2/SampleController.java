@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -35,6 +36,8 @@ public class SampleController {
     private List<ByteBuffer> buffers = new ArrayList<>();
     private FileChannel fileChannel;
     private static Map<String, User> map = new HashMap<>();
+//    @Resource
+    private TranslationCommands translationCommands;
 
     @GetMapping("/")
     String home() {
@@ -166,6 +169,11 @@ public class SampleController {
         String str = JSON.toJSONString(users);
         Thread.sleep(1000 * 3);
         return "success";
+    }
+
+    @GetMapping("/test8")
+    public String testShell1() {
+        return translationCommands.translate();
     }
 
     public <T, R> List<R> buildList(Function<T, R> function, Predicate<R> predicate, T... t) {
